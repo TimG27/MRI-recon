@@ -102,7 +102,7 @@ Apptainer> exit
 This will install bart: version 0.8.00 in a directory called bart-0.8.00. 
 
 ## Creating a Python file that imports bart
-Before we copy our container to the cluster, let's create a python file to test.
+Before we copy our container to the cluster, let's create a test python file.
 
 ```commandline
 cd ~/bart-container/
@@ -123,7 +123,7 @@ except ImportError as err:
     print ('Error: ', err)
 ```
 
-The first four lines ensure that the TOOLBOX_PATH is set to the base directory.
+The first four lines ensure that the 'TOOLBOX_PATH' is set to the base directory.
 
 ## Copying and running the image
 
