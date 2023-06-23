@@ -82,6 +82,7 @@ apptainer shell -W /home/timothy/bart-container/workdir/ -C -B /home/timothy/bar
 * -W sets the working directory.
 * -C tells Apptainer not to mount the default directory.
 * -B asks to specifically mount the provided directory.
+  
 This will open an interactive shell. Here, you can download packages or install other libraries.
 
 ```commandline
