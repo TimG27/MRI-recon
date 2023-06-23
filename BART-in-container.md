@@ -6,8 +6,8 @@ _This allowed me to run the BART toolbox in an interactive node shell. I have no
 
 ### Why this way?
 * This method creates a container image locally before copying and running it on the cluster. It may be difficult to install BART directly on the cluster (See [BLAS and LAPACK](https://docs.alliancecan.ca/wiki/BLAS_and_LAPACK) libraries on the cluster.) 
-* Another workaround would be to use a debian:testing container (as opposed to ubuntu:20.04). But python packages may not work correctly.
-* This method uses [Apptainer](https://docs.alliancecan.ca/wiki/Apptainer), the docker software supported on the cluster.
+* Another workaround would be to use a debian:testing container (as opposed to ubuntu:20.04). But, python packages may not work correctly.
+* This method uses [Apptainer](https://docs.alliancecan.ca/wiki/Apptainer), the docker software supported on the Compute Canada clusters.
  
 ### Overview :
 1. Creating a container image on the local machine.
@@ -31,7 +31,7 @@ cd bart-container/
 nano container1.def 
 ````
 
-Now we need to type in the definition file for our container image.
+We can now create a definition file for our container image.
 
 ````
 #container 1.def
@@ -52,7 +52,7 @@ from: ubuntu:20.04
         echo "Hello from the container!"
 ````
 
-This .def file defines an ubuntu:20.04 container. It installs Python, pip, and packages required for BART. You can also install the Python libraries you would need for your program. This file installs numpy, h5py, matplotlib, and SimpleITK libraries.
+This .def file defines an ubuntu:20.04 container. It installs Python, pip, and some packages required for BART. You can also install the Python libraries you would need for your program. This file installs numpy, h5py, matplotlib, and SimpleITK libraries.
 
 
 Now, we can build an image from this definition file.
@@ -61,7 +61,7 @@ Now, we can build an image from this definition file.
 apptainer build container1.sif container1.def
 ````
 
-Now the apptainer build function will run. After a few moments, your container image (.sif) will be created.
+Now, the apptainer build function will run. After a few moments, your container image (.sif) will be created.
 
 You can test your container image by executing the runscript.
 
@@ -79,9 +79,9 @@ mkdir workdir
 apptainer shell -W /home/timothy/bart-container/workdir/ -C -B /home/timothy/bart-container container1.sif
 ```
 
-* -W sets the working directory
-* -C tells Apptainer not to mount the default directory
-* -B asks to specifically mount the provided directory
+* -W sets the working directory.
+* -C tells Apptainer not to mount the default directory.
+* -B asks to specifically mount the provided directory.
 This will open an interactive shell. Here, you can download packages or install other libraries.
 
 ```commandline
@@ -126,14 +126,14 @@ The first four lines ensure that the TOOLBOX_PATH is set to the base directory.
 
 ## Copying and running the image
 
-Now we can copy our directory (with the container image and the BART files) to the cluster.
+Now, we can copy our directory (with the container image and the BART files) to the cluster.
 
 ```commandline
 cd 
 scp /home/timothy2/bart-container/ timothy2@narval.computecanada.ca:/home/timothy2/scratch/
 ```
 
-Now connect to your cluster.
+Now, connect to your cluster.
 ```commandline
 ssh timothy2@narval.computecanada.ca
 cd /home/timothy2/scratch/bart-container/
